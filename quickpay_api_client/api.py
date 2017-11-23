@@ -51,7 +51,7 @@ class QPApi(object):
         }
 
         if callback_header:
-            header['QuickPay-Callback-Url'] = callback_header
+            headers['QuickPay-Callback-Url'] = callback_header
 
         if self.secret:
             headers["Authorization"
