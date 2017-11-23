@@ -41,7 +41,7 @@ class QPApi(object):
     def fulfill(self, method, *args, **kwargs):
         return getattr(self.session, method)(*args, **kwargs)
 
-    def perform(self, method, path, **kwargs):
+    def perform(self, method, path, callback_header=None, **kwargs):
         raw = kwargs.pop('raw', False)
         url = "{0}{1}".format(self.base_url, path)
 
@@ -49,6 +49,9 @@ class QPApi(object):
             "Accept-Version": 'v%s' % self.api_version,
             "User-Agent": "quickpay-python-client, v%s" % quickpay_api_client.__version__
         }
+
+        if callback_header:
+            header['QuickPay-Callback-Url'] = callback_header
 
         if self.secret:
             headers["Authorization"
